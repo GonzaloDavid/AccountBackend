@@ -48,6 +48,7 @@ public class AccountDAO extends GenericDAO<Accounts>{
         accounts.setIdentification(identification);
         accounts.setAge(age);
         accounts.setDateTransaction(dateTransaction);
+        accounts.setDateCreateAccount(new Date());
         accounts.setEmail(email);
 
         insert(accounts);

@@ -26,7 +26,7 @@ public class Accounts {
     @Column(name = "dateTransaction")
     private Date dateTransaction;
     @Column(name = "dateCreateAccount")
-    private String dateCreateAccount;
+    private Date dateCreateAccount;
     @Column(name = "email")
     private String email;
 
@@ -81,11 +81,11 @@ public class Accounts {
         this.dateTransaction = dateTransaction;
     }
 
-    public String getDateCreateAccount() {
+    public Date getDateCreateAccount() {
         return dateCreateAccount;
     }
 
-    public void setDateCreateAccount(String dateCreateAccount) {
+    public void setDateCreateAccount(Date dateCreateAccount) {
         this.dateCreateAccount = dateCreateAccount;
     }
 
