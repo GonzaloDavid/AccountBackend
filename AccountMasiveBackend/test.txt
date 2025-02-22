@@ -1,0 +1,3 @@
+Nombre1,Apellido1,Identificacion1,Edad1,FechaRegistro,Correo1
+Nombre2,Apellido2,Identificacion2,Edad2,FechaRegistro,Correo2
+Nombre3,Apellido3,Identificacion3,Edad3,FechaRegistro,Correo3
