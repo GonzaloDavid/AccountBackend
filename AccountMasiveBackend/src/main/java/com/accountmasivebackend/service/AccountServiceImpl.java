@@ -11,6 +11,8 @@ import jakarta.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.accountmasivebackend.util.Constants.ACCOUNT_INICIAL;
+
 /**
  *
  * @author DavidPro
@@ -31,7 +33,7 @@ public class AccountServiceImpl extends GenericDAO<Accounts> {
      */
     public List<Integer> generateUniqueCodeAccount(int numberRecords)
     {
-        int inicialValue=100000000;
+        int inicialValue=ACCOUNT_INICIAL;
         List<Integer> accountCodeList=new ArrayList<>();
 
         //Consulta si existe alguna cuenta creada

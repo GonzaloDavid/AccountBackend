@@ -5,11 +5,14 @@ import com.accountmasivebackend.dao.GenericDAO;
 import com.accountmasivebackend.dto.FileAccount;
 import com.accountmasivebackend.dto.ProcessFile;
 import com.accountmasivebackend.dto.ResponseUploadFile;
+import com.accountmasivebackend.entities.Accounts;
 import com.accountmasivebackend.entities.LoadFile;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +63,8 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             response.setMessage("Archivo cargado exitosamente");
             response.setPathFile(filePath);
 
-
+            ProcessFile resultFile=manageProcessFile(filePath);
+            response.setResultFile(resultFile);
 
             return response;
         } catch (Exception e) {
@@ -88,12 +92,13 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
         List<Integer> accountCodeList= accountService.generateUniqueCodeAccount(resultFile.getSucessfulList().size());
 
         int count=0;
-        for(String c:resultFile.getSucessfulList())
+        for(Accounts accountsObj:resultFile.getSucessfulList())
         {
             Integer codeAccount= accountCodeList.get(count);
+            accountsObj.setCodeAccount(codeAccount);
 
             //Insertar de manera masiva las cuentas
-            accountDAO.createAccount(codeAccount, "GONZALO", "PROANO", "1723353403", 30, new Date(), "davidpro");
+            accountDAO.createAccount(codeAccount, accountsObj.getName(), accountsObj.getLastName(), accountsObj.getLastName(), accountsObj.getAge(), accountsObj.getDateTransaction(), accountsObj.getEmail());
 
             count++;
         }
@@ -142,7 +147,7 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
 
     public ProcessFile validateFields(List<FileAccount> processedFile)
     {
-        List<String> sucessfulList=new ArrayList<>();
+        List<Accounts> sucessfulList=new ArrayList<>();
         List<String> errorList=new ArrayList<>();
 
         for(FileAccount lineObj: processedFile)
@@ -243,7 +248,14 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
 
             if(!existError)
             {
-                sucessfulList.add(lineObj.getRowValue());
+                Accounts a=new Accounts();
+                a.setName(nameCustomer);
+                a.setIdentification(identification);
+                a.setLastName(lastName);
+                a.setAge(Integer.parseInt(age));
+                a.setDateTransaction(parserDateTransaction(dateTransaction));
+                a.setEmail(email);
+                sucessfulList.add(a);
             }
         }
         ProcessFile p=new ProcessFile();
@@ -251,6 +263,18 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
         p.setErrorList(errorList);
         return p;
 
+    }
+
+    /**
+     * Convierte el formato de string a tipo date
+     * @param dateTransactionStr
+     * @return
+     */
+    private Date parserDateTransaction(String dateTransactionStr){
+
+        LocalDate dateTransactionTemp = LocalDate.parse(dateTransactionStr);
+        Date dateTransaction = Date.from(dateTransactionTemp.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return dateTransaction;
     }
 
     /**

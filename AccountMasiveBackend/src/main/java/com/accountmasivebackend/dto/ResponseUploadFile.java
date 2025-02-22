@@ -4,6 +4,7 @@ public class ResponseUploadFile {
     private String code;
     private String message;
     private String pathFile;
+    private ProcessFile resultFile;
 
     public ResponseUploadFile() {
     }
@@ -30,5 +31,13 @@ public class ResponseUploadFile {
 
     public void setPathFile(String pathFile) {
         this.pathFile = pathFile;
+    }
+
+    public ProcessFile getResultFile() {
+        return resultFile;
+    }
+
+    public void setResultFile(ProcessFile resultFile) {
+        this.resultFile = resultFile;
     }
 }
