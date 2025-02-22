@@ -1,7 +1,9 @@
 package com.accountmasivebackend.service;
 
+import com.accountmasivebackend.dao.GenericDAO;
 import com.accountmasivebackend.dto.ResponseUploadFile;
-import jakarta.ejb.Singleton;
+import com.accountmasivebackend.entities.LoadFile;
+import jakarta.ejb.Stateless;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,8 +15,11 @@ import static com.accountmasivebackend.util.Constants.PATH_FILE_ACCOUNT;
  *
  * @author DavidPro
  */
-@Singleton
-public class LoadfileServiceImpl  {
+@Stateless
+public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
+    public LoadfileServiceImpl(){
+        super(LoadFile.class);
+    }
 
 
     public ResponseUploadFile uploadFile(InputStream fileObject, String namefile) {

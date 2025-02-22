@@ -25,8 +25,8 @@ import static com.accountmasivebackend.util.Constants.PATH_FILE_ACCOUNT;
 @Path("bulkAccount")
 public class AccountRest extends AbstractFacade<LoadFile> {
 
-    //@EJB
-    private LoadfileServiceImpl loadfileService=new LoadfileServiceImpl();
+    @EJB
+    private LoadfileServiceImpl loadfileService;
     @PersistenceContext(unitName = "my_persistence_unit")
     private EntityManager em;
 
@@ -48,7 +48,7 @@ public class AccountRest extends AbstractFacade<LoadFile> {
      * @return
      */
     @POST
-    @Path("upload")
+    @Path("uploadloadFile")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseUploadFile processFile(@FormDataParam("file") InputStream fileObject,
