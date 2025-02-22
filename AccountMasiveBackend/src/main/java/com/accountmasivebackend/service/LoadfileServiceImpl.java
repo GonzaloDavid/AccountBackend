@@ -2,6 +2,7 @@ package com.accountmasivebackend.service;
 
 import com.accountmasivebackend.dao.AccountDAO;
 import com.accountmasivebackend.dao.GenericDAO;
+import com.accountmasivebackend.dao.LoadfileDAO;
 import com.accountmasivebackend.dto.FileAccount;
 import com.accountmasivebackend.dto.ProcessFile;
 import com.accountmasivebackend.dto.ResponseUploadFile;
@@ -30,6 +31,8 @@ import static com.accountmasivebackend.util.Constants.PATH_FILE_ACCOUNT;
 public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
     @EJB
     private AccountDAO accountDAO;
+    @EJB
+    private LoadfileDAO loadfileDAO;
     @EJB
     private AccountServiceImpl accountService;
 
@@ -63,7 +66,7 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             response.setMessage("Archivo cargado exitosamente");
             response.setPathFile(filePath);
 
-            ProcessFile resultFile=manageProcessFile(filePath);
+            ProcessFile resultFile=manageProcessFile(filePath, namefile);
             response.setResultFile(resultFile);
 
             return response;
@@ -77,11 +80,13 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
     /**
      * Administra el flujo del procesamiento de archivos
      * @param filePath
+     * @param namefile
      * @return
      */
-    public ProcessFile manageProcessFile(String filePath)
+    public ProcessFile manageProcessFile(String filePath, String namefile)
     {
         //Crear cabecera de ejecucion de archivos
+        LoadFile loadfileInserted=loadfileDAO.createLoadfileObject(namefile);
 
         //Obtener la informacion del archivo
         List<FileAccount> fileList=processFile(filePath);
@@ -103,7 +108,7 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             count++;
         }
 
-
+        resultFile.setLoadfileInserted(loadfileInserted);
         return resultFile;
 
     }

@@ -13,6 +13,7 @@ import java.util.Date;
 public class LoadFile {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seqLoadFile")
     private Long seqLoadFile;
     @Column(name = "nameLoadFile")

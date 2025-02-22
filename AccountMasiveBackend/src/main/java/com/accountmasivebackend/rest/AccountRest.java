@@ -61,9 +61,10 @@ public class AccountRest extends AbstractFacade<LoadFile> {
     @Path("processfile")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ProcessFile processFile(@QueryParam("pathFile") String pathFile) {
+    public ProcessFile processFile(@QueryParam("pathFile") String pathFile,
+                                   @QueryParam("namefile") String namefile) {
 
-        return loadfileService.manageProcessFile(pathFile);
+        return loadfileService.manageProcessFile(pathFile, namefile);
 
     }
 
