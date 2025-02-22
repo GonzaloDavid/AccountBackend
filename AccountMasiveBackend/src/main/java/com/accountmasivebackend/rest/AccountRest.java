@@ -1,5 +1,6 @@
 package com.accountmasivebackend.rest;
 
+import com.accountmasivebackend.dto.ProcessFile;
 import com.accountmasivebackend.dto.ResponseUploadFile;
 import com.accountmasivebackend.entities.LoadFile;
 import com.accountmasivebackend.service.LoadfileServiceImpl;
@@ -14,8 +15,6 @@ import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import java.io.InputStream;
-
-import static com.accountmasivebackend.util.Constants.PATH_FILE_ACCOUNT;
 
 /**
  *
@@ -51,10 +50,20 @@ public class AccountRest extends AbstractFacade<LoadFile> {
     @Path("uploadloadFile")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseUploadFile processFile(@FormDataParam("file") InputStream fileObject,
+    public ResponseUploadFile uploadloadFile(@FormDataParam("file") InputStream fileObject,
                                           @FormDataParam("namefile") String namefile) {
 
        return loadfileService.uploadFile(fileObject, namefile);
+
+    }
+
+    @POST
+    @Path("processfile")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ProcessFile processFile(@QueryParam("pathFile") String pathFile) {
+
+        return loadfileService.manageProcessFile(pathFile);
 
     }
 
