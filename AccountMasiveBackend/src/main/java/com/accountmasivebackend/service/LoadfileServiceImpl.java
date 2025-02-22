@@ -148,7 +148,7 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
     public ProcessFile validateFields(List<FileAccount> processedFile)
     {
         List<Accounts> sucessfulList=new ArrayList<>();
-        List<String> errorList=new ArrayList<>();
+        List<FileAccount> errorList=new ArrayList<>();
 
         for(FileAccount lineObj: processedFile)
         {
@@ -157,7 +157,11 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             if(lineObj.equals(""))
             {
                 String message="Linea "+lineObj.getRowValue() + " no contiene informacion";
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
@@ -166,7 +170,11 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             if(rowValueList.length ==0 )
             {
                 String message="Linea "+ lineObj.getRowValue() + " no contiene todos los elementos";
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
@@ -182,7 +190,11 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             if(!validateemptyfields(nameCustomer))
             {
                 String message="Linea "+ lineObj.getRowNumber() + " en campo nombre no existe : "+ nameCustomer;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
@@ -190,7 +202,11 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             if(!validateemptyfields(lastName))
             {
                 String message="Linea "+ lineObj.getRowNumber() + " en campo lastName no existe : "+ lastName;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
@@ -198,14 +214,22 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             if(!validateemptyfields(identification))
             {
                 String message="Linea "+ lineObj.getRowNumber() + " en campo identification no existe : "+ identification;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
             if(!validateemptyfields(dateTransaction))
             {
                 String message="Linea "+ lineObj.getRowNumber() + " en campo dateTransaction no existe : "+ dateTransaction;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
@@ -213,35 +237,55 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
             if(!validateemptyfields(email))
             {
                 String message="Linea "+ lineObj.getRowNumber() + " en campo email no existe : "+ email;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
 
             if(!validateLettersOnly(nameCustomer)){
                 String message="Linea "+ lineObj.getRowNumber() + " en campo nombre contiene valores invalidos : "+ nameCustomer;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
 
             if(!validateLettersOnly(lastName)){
                 String message="Linea "+ lineObj.getRowNumber() + " en campo apellido contiene valores invalidos : "+ lastName;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
 
             if(!validateNumberOnly(age)){
                 String message="Linea "+ lineObj.getRowNumber() + " en campo edad contiene valores invalidos : "+ age;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }
 
             if(!validateEmail(email)){
                 String message="Linea "+ lineObj.getRowNumber() + " en campo email contiene valores invalidos : "+ email;
-                errorList.add(message);
+                FileAccount f=new FileAccount();
+                f.setRowNumber(lineObj.getRowNumber());
+                f.setRowValue(message);
+
+                errorList.add(f);
                 existError=true;
                 System.out.println(message);
             }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProcessFile {
     private List<Accounts> sucessfulList;
-    private List<String> errorList;
+    private List<FileAccount> errorList;
 
     public ProcessFile() {
     }
@@ -19,11 +19,11 @@ public class ProcessFile {
         this.sucessfulList = sucessfulList;
     }
 
-    public List<String> getErrorList() {
+    public List<FileAccount> getErrorList() {
         return errorList;
     }
 
-    public void setErrorList(List<String> errorList) {
+    public void setErrorList(List<FileAccount> errorList) {
         this.errorList = errorList;
     }
 }
