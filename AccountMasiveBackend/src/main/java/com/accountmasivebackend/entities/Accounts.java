@@ -2,6 +2,8 @@ package com.accountmasivebackend.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 /**
  * @autor DavidPro
  */
@@ -12,7 +14,7 @@ public class Accounts {
 
     @Id
     @Column(name = "codeAccount")
-    private String codeAccount;
+    private Integer codeAccount;
     @Column(name = "name")
     private String name;
     @Column(name = "lastName")
@@ -20,9 +22,9 @@ public class Accounts {
     @Column(name = "identification")
     private String identification;
     @Column(name = "age")
-    private String age;
+    private Integer age;
     @Column(name = "dateTransaction")
-    private String dateTransaction;
+    private Date dateTransaction;
     @Column(name = "dateCreateAccount")
     private String dateCreateAccount;
     @Column(name = "email")
@@ -31,11 +33,11 @@ public class Accounts {
     public Accounts() {
     }
 
-    public String getCodeAccount() {
+    public Integer getCodeAccount() {
         return codeAccount;
     }
 
-    public void setCodeAccount(String codeAccount) {
+    public void setCodeAccount(Integer codeAccount) {
         this.codeAccount = codeAccount;
     }
 
@@ -63,19 +65,19 @@ public class Accounts {
         this.identification = identification;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public String getDateTransaction() {
+    public Date getDateTransaction() {
         return dateTransaction;
     }
 
-    public void setDateTransaction(String dateTransaction) {
+    public void setDateTransaction(Date dateTransaction) {
         this.dateTransaction = dateTransaction;
     }
 

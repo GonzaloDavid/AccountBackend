@@ -1,14 +1,17 @@
 package com.accountmasivebackend.service;
 
+import com.accountmasivebackend.dao.AccountDAO;
 import com.accountmasivebackend.dao.GenericDAO;
 import com.accountmasivebackend.dto.FileAccount;
 import com.accountmasivebackend.dto.ProcessFile;
 import com.accountmasivebackend.dto.ResponseUploadFile;
 import com.accountmasivebackend.entities.LoadFile;
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -22,6 +25,10 @@ import static com.accountmasivebackend.util.Constants.PATH_FILE_ACCOUNT;
  */
 @Stateless
 public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
+    @EJB
+    private AccountDAO accountDAO;
+    @EJB
+    private AccountServiceImpl accountService;
 
     public LoadfileServiceImpl(){
         super(LoadFile.class);
@@ -78,7 +85,19 @@ public class LoadfileServiceImpl extends GenericDAO<LoadFile> {
         //Validar los campos del archivo
         ProcessFile resultFile=validateFields(fileList);
 
-        //Insertar de manera masiva las cuentas
+        List<Integer> accountCodeList= accountService.generateUniqueCodeAccount(resultFile.getSucessfulList().size());
+
+        int count=0;
+        for(String c:resultFile.getSucessfulList())
+        {
+            Integer codeAccount= accountCodeList.get(count);
+
+            //Insertar de manera masiva las cuentas
+            accountDAO.createAccount(codeAccount, "GONZALO", "PROANO", "1723353403", 30, new Date(), "davidpro");
+
+            count++;
+        }
+
 
         return resultFile;
 
